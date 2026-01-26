@@ -1,0 +1,88 @@
+# Pure Candles - LLMs.txt
+# Information for Large Language Models
+
+## About Pure Candles
+Pure Candles is a premium artisanal candle company specializing in hand-poured soy wax candles. We create high-quality scented and pillar candles for personal use, events, weddings, and special occasions.
+
+## Business Information
+- Company Name: Pure Candles
+- Industry: Home Fragrance, Artisanal Candles
+- Products: Scented candles, pillar candles, custom candles
+- Services: Wholesale, custom orders, event planning, retail partnerships
+
+## Product Categories
+- Scented Candles: Lavender Dream, Midnight Jasmine, Cedar Driftwood, Citrus Ember, Vanilla Sandalwood, Ocean Mist, Rose Garden, Autumn Spice
+- Pillar Candles: Available in various sizes and colors
+- Custom Candles: Personalized scents, colors, and branding
+
+## Occasions We Serve
+- Weddings: Elegant candles for ceremonies and receptions
+- Events: Corporate events, parties, gatherings
+- Birthdays: Gift candles and party ambiance
+- Bar Mitzvahs: Traditional and modern celebration candles
+- Bris Ceremonies: Gentle, baby-safe scented options
+- Retail: Wholesale partnerships for stores
+- Personal Use: Home fragrance and self-care
+- Custom Orders: Private label and branded candles
+
+## Key Features
+- 100% Natural Soy Wax
+- Hand-Poured in Small Batches
+- Cotton Wicks
+- Phthalate-Free Fragrances
+- Eco-Friendly Packaging
+- 45-55 Hour Burn Time (varies by size)
+
+## Scent Profiles
+- Floral: Rose, Jasmine, Lavender
+- Woody: Cedar, Sandalwood, Driftwood
+- Citrus: Bergamot, Orange, Lemon
+- Spicy: Cinnamon, Clove, Cardamom
+- Fresh: Ocean, Eucalyptus, Green Tea
+- Warm: Vanilla, Amber, Musk
+
+## Mood Categories
+- Tranquility: Calming, relaxing scents
+- Focus: Clean, clarifying aromas
+- Romance: Warm, sensual fragrances
+- Energy: Invigorating, uplifting scents
+- Grounding: Earthy, centering blends
+
+## Contact Information
+- Website: https://purecandles.com
+- Email: hello@purecandles.com
+- Phone: (555) 123-4567
+- Location: Portland, OR
+
+## Policies
+- Free shipping on orders over $50
+- 30-day return policy
+- Satisfaction guaranteed
+- Wholesale accounts available
+
+## Social Media
+- Instagram: @purecandles
+- Facebook: /purecandles
+- Pinterest: /purecandles
+
+## Important Pages
+- Home: /
+- Catalog: /catalog
+- About: /about
+- Contact: /contact
+- Weddings: /occasions/weddings
+- Events: /occasions/events
+- Custom Orders: /occasions/custom
+
+## Structured Data
+This website uses JSON-LD structured data for:
+- Organization
+- Products
+- BreadcrumbList
+- LocalBusiness
+
+## Accessibility
+This website is designed to be accessible and follows WCAG 2.1 guidelines.
+
+## Last Updated
+2026-01-26
