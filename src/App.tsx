@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { DesignModeProvider } from './contexts/DesignModeContext'
+import { DesignModeToolbar } from './components/DesignModeToolbar'
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })))
@@ -23,35 +25,38 @@ function PageLoader() {
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main id="main-content" className="flex-1">
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            {/* Main Pages */}
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/journal" element={<Journal />} />
+    <DesignModeProvider>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main id="main-content" className="flex-1">
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              {/* Main Pages */}
+              <Route path="/" element={<Home />} />
+              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/journal" element={<Journal />} />
 
-            {/* Occasion Pages */}
-            <Route path="/occasions/:occasion" element={<OccasionPage />} />
+              {/* Occasion Pages */}
+              <Route path="/occasions/:occasion" element={<OccasionPage />} />
 
-            {/* Redirects for legacy/alternative URLs */}
-            <Route path="/products" element={<Navigate to="/catalog" replace />} />
-            <Route path="/shop" element={<Navigate to="/catalog" replace />} />
-            <Route path="/weddings" element={<Navigate to="/occasions/weddings" replace />} />
-            <Route path="/events" element={<Navigate to="/occasions/events" replace />} />
+              {/* Redirects for legacy/alternative URLs */}
+              <Route path="/products" element={<Navigate to="/catalog" replace />} />
+              <Route path="/shop" element={<Navigate to="/catalog" replace />} />
+              <Route path="/weddings" element={<Navigate to="/occasions/weddings" replace />} />
+              <Route path="/events" element={<Navigate to="/occasions/events" replace />} />
 
-            {/* 404 fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
-    </div>
+              {/* 404 fallback */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+        <DesignModeToolbar />
+      </div>
+    </DesignModeProvider>
   )
 }
 

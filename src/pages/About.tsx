@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { EditableText } from '../components/EditableText'
 
 const values = [
   {
@@ -52,9 +53,15 @@ export function About() {
           <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
-          <h1 className="text-5xl md:text-7xl text-white mb-6">Our Philosophy</h1>
+          <h1 className="text-5xl md:text-7xl text-white mb-6">
+            <EditableText id="about-hero-title" as="span" elementType="heading">
+              Our Philosophy
+            </EditableText>
+          </h1>
           <p className="text-xl text-white/90">
-            Crafting moments of warmth and tranquility through the art of candlemaking
+            <EditableText id="about-hero-subtitle" as="span" elementType="text">
+              Crafting moments of warmth and tranquility through the art of candlemaking
+            </EditableText>
           </p>
         </div>
       </section>
@@ -64,9 +71,15 @@ export function About() {
         <div className="container-narrow">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-[#c9956c] text-xs tracking-[0.2em] uppercase mb-6">Our Story</p>
+              <p className="text-[#c9956c] text-xs tracking-[0.2em] uppercase mb-6">
+                <EditableText id="about-story-label" as="span" elementType="text">
+                  Our Story
+                </EditableText>
+              </p>
               <h2 className="text-4xl md:text-5xl mb-6 leading-tight">
-                Born from a love of light and scent
+                <EditableText id="about-story-title" as="span" elementType="heading">
+                  Born from a love of light and scent
+                </EditableText>
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
@@ -108,9 +121,15 @@ export function About() {
       <section className="py-20 md:py-28 bg-[#f8f6f3]">
         <div className="container-narrow">
           <div className="text-center mb-16">
-            <h2 className="section-title mb-4">What We Stand For</h2>
+            <h2 className="section-title mb-4">
+              <EditableText id="about-values-title" as="span" elementType="heading">
+                What We Stand For
+              </EditableText>
+            </h2>
             <p className="section-subtitle">
-              Our values guide every decision we make, from sourcing to shipping.
+              <EditableText id="about-values-subtitle" as="span" elementType="text">
+                Our values guide every decision we make, from sourcing to shipping.
+              </EditableText>
             </p>
           </div>
 
@@ -206,12 +225,20 @@ export function About() {
       {/* CTA Section */}
       <section className="py-20 md:py-28">
         <div className="container-narrow text-center">
-          <h2 className="section-title mb-4">Experience Pure Candles</h2>
+          <h2 className="section-title mb-4">
+            <EditableText id="about-cta-title" as="span" elementType="heading">
+              Experience Pure Candles
+            </EditableText>
+          </h2>
           <p className="section-subtitle mb-8">
-            Discover our collection and find your perfect scent.
+            <EditableText id="about-cta-subtitle" as="span" elementType="text">
+              Discover our collection and find your perfect scent.
+            </EditableText>
           </p>
           <Link to="/catalog" className="btn-primary inline-flex items-center">
-            Shop the Collection <ArrowRight className="ml-2 h-4 w-4" />
+            <EditableText id="about-cta-button" as="span" elementType="button">
+              Shop the Collection
+            </EditableText> <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
       </section>

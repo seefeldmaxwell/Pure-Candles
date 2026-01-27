@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Droplets, Wind, Flame } from 'lucide-react'
+import { EditableText } from '../components/EditableText'
 
 const categories = [
   {
@@ -66,26 +67,44 @@ export function Home() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="inline-block px-6 py-2 border border-white/30 text-white text-xs tracking-[0.2em] uppercase mb-8">
-            Pillar & Scented Specialties
+            <EditableText id="hero-tagline" elementType="text">
+              Pillar & Scented Specialties
+            </EditableText>
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight">
-            Hand-Poured <em className="font-normal">Pure</em>
+            <EditableText id="hero-title-1" as="span" elementType="heading">
+              Hand-Poured
+            </EditableText>{' '}
+            <em className="font-normal">
+              <EditableText id="hero-title-2" as="span" elementType="heading">
+                Pure
+              </EditableText>
+            </em>
             <br />
-            <em className="font-normal">Perfection</em>
+            <em className="font-normal">
+              <EditableText id="hero-title-3" as="span" elementType="heading">
+                Perfection
+              </EditableText>
+            </em>
           </h1>
 
           <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Pure Candles are the perfect companion for all your favorite occasions. From
-            elegant pillar arrangements to intimate scented rituals.
+            <EditableText id="hero-description" as="span" elementType="text" multiline>
+              Pure Candles are the perfect companion for all your favorite occasions. From elegant pillar arrangements to intimate scented rituals.
+            </EditableText>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/catalog" className="btn-primary">
-              Shop the Collection
+              <EditableText id="hero-cta-1" as="span" elementType="button">
+                Shop the Collection
+              </EditableText>
             </Link>
             <Link to="/about" className="btn-outline">
-              Our Philosophy
+              <EditableText id="hero-cta-2" as="span" elementType="button">
+                Our Philosophy
+              </EditableText>
             </Link>
           </div>
         </div>
@@ -102,9 +121,15 @@ export function Home() {
       <section className="py-20 md:py-28 bg-white">
         <div className="container-narrow">
           <div className="text-center mb-16">
-            <h2 className="section-title mb-4">Curated for Every Ritual</h2>
+            <h2 className="section-title mb-4">
+              <EditableText id="categories-title" as="span" elementType="heading">
+                Curated for Every Ritual
+              </EditableText>
+            </h2>
             <p className="section-subtitle">
-              Whether it's a grand wedding or a quiet evening, find your perfect match.
+              <EditableText id="categories-subtitle" as="span" elementType="text">
+                Whether it's a grand wedding or a quiet evening, find your perfect match.
+              </EditableText>
             </p>
           </div>
 
@@ -143,14 +168,20 @@ export function Home() {
             </div>
 
             <div>
-              <p className="text-[#c9956c] text-xs tracking-[0.2em] uppercase mb-6">Artisanal Specialty</p>
+              <p className="text-[#c9956c] text-xs tracking-[0.2em] uppercase mb-6">
+                <EditableText id="pillar-label" as="span" elementType="text">
+                  Artisanal Specialty
+                </EditableText>
+              </p>
               <h2 className="text-4xl md:text-5xl mb-6 leading-tight">
-                Expertly crafted<br />pillar<br />arrangements
+                <EditableText id="pillar-title" as="span" elementType="heading">
+                  Expertly crafted pillar arrangements
+                </EditableText>
               </h2>
               <p className="text-gray-400 mb-8 leading-relaxed">
-                Pure Candles specializes in hand-poured pillars that command attention.
-                Our artisanal process ensures a clean, long-lasting burn for your most
-                important occasions.
+                <EditableText id="pillar-description" as="span" elementType="text" multiline>
+                  Pure Candles specializes in hand-poured pillars that command attention. Our artisanal process ensures a clean, long-lasting burn for your most important occasions.
+                </EditableText>
               </p>
 
               <div className="space-y-4 border-t border-gray-700 pt-8">
@@ -172,9 +203,15 @@ export function Home() {
       <section className="py-20 md:py-28 bg-gray-50">
         <div className="container-narrow">
           <div className="text-center mb-16">
-            <h2 className="section-title mb-4">Shop by Occasion</h2>
+            <h2 className="section-title mb-4">
+              <EditableText id="occasions-title" as="span" elementType="heading">
+                Shop by Occasion
+              </EditableText>
+            </h2>
             <p className="section-subtitle">
-              Find the perfect candles for every moment that matters.
+              <EditableText id="occasions-subtitle" as="span" elementType="text">
+                Find the perfect candles for every moment that matters.
+              </EditableText>
             </p>
           </div>
 
@@ -200,10 +237,15 @@ export function Home() {
       <section className="py-20 md:py-28 bg-white">
         <div className="container-narrow">
           <div className="text-center mb-16">
-            <h2 className="section-title mb-4">Follow Our Journey</h2>
+            <h2 className="section-title mb-4">
+              <EditableText id="social-title" as="span" elementType="heading">
+                Follow Our Journey
+              </EditableText>
+            </h2>
             <p className="section-subtitle">
-              Stay connected with us on social media for the latest collections,
-              behind-the-scenes content, and candle care tips.
+              <EditableText id="social-subtitle" as="span" elementType="text" multiline>
+                Stay connected with us on social media for the latest collections, behind-the-scenes content, and candle care tips.
+              </EditableText>
             </p>
           </div>
 
@@ -217,9 +259,15 @@ export function Home() {
       {/* Newsletter Section */}
       <section className="py-20 md:py-28 bg-[#f8f6f3]">
         <div className="container-narrow text-center">
-          <h2 className="section-title mb-4">Join the Pure Candles Community</h2>
+          <h2 className="section-title mb-4">
+            <EditableText id="newsletter-title" as="span" elementType="heading">
+              Join the Pure Candles Community
+            </EditableText>
+          </h2>
           <p className="section-subtitle mb-8">
-            Subscribe to receive exclusive offers, early access to new collections, and candle care tips.
+            <EditableText id="newsletter-subtitle" as="span" elementType="text">
+              Subscribe to receive exclusive offers, early access to new collections, and candle care tips.
+            </EditableText>
           </p>
           <form className="max-w-md mx-auto flex gap-4">
             <input
