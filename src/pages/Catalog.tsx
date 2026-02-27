@@ -20,6 +20,15 @@ export function Catalog() {
   const [sortBy, setSortBy] = useState('Newest First')
   const [showSortDropdown, setShowSortDropdown] = useState(false)
   const addItem = useCartStore((s) => s.addItem)
+  const clearCart = useCartStore((s) => s.clearCart)
+  const isCheckoutSuccess = searchParams.get('success') === 'true'
+
+  // Clear cart after successful checkout
+  useEffect(() => {
+    if (isCheckoutSuccess) {
+      clearCart()
+    }
+  }, [isCheckoutSuccess, clearCart])
 
   // Sync search query from URL params
   useEffect(() => {
@@ -87,6 +96,14 @@ export function Catalog() {
 
   return (
     <div className="min-h-screen bg-white">
+      {isCheckoutSuccess && (
+        <div className="bg-green-50 border-b border-green-200 py-4">
+          <div className="container-narrow text-center">
+            <p className="text-green-800 font-medium">Order confirmed! Thank you for your purchase.</p>
+            <p className="text-green-600 text-sm mt-1">You'll receive a confirmation email shortly.</p>
+          </div>
+        </div>
+      )}
       <div className="container-narrow py-12">
         <div className="grid lg:grid-cols-[280px_1fr] gap-12">
           {/* Sidebar Filters */}

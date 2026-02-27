@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Minus, Plus, Trash2, ArrowLeft, ArrowRight, ShoppingBag } from 'lucide-react'
 import { useCartStore } from '../stores/cartStore'
 
 export function Cart() {
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCartStore()
+  const [searchParams] = useSearchParams()
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const isCanceled = searchParams.get('canceled') === 'true'
 
   const handleCheckout = async () => {
+    setCheckoutError(null)
+    setIsCheckingOut(true)
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -22,9 +29,13 @@ export function Cart() {
       const data = await response.json()
       if (data.url) {
         window.location.href = data.url
+      } else if (data.error) {
+        setCheckoutError(data.error)
+        setIsCheckingOut(false)
       }
-    } catch (error) {
-      console.error('Checkout error:', error)
+    } catch {
+      setCheckoutError('Unable to connect to checkout. Please try again.')
+      setIsCheckingOut(false)
     }
   }
 
@@ -173,11 +184,24 @@ export function Cart() {
                 </div>
               </div>
 
+              {isCanceled && (
+                <p className="text-sm text-amber-600 text-center mb-4">
+                  Checkout was canceled. Your cart items are still saved.
+                </p>
+              )}
+
+              {checkoutError && (
+                <p className="text-sm text-red-600 text-center mb-4">
+                  {checkoutError}
+                </p>
+              )}
+
               <button
                 onClick={handleCheckout}
-                className="btn-primary w-full mt-6"
+                disabled={isCheckingOut}
+                className="btn-primary w-full mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Proceed to Checkout
+                {isCheckingOut ? 'Redirecting to Checkout...' : 'Proceed to Checkout'}
               </button>
 
               <p className="text-xs text-gray-500 text-center mt-4">

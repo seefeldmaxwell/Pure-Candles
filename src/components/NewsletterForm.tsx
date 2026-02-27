@@ -9,9 +9,21 @@ export function NewsletterForm() {
     e.preventDefault()
     if (!email) return
     setStatus('submitting')
-    await new Promise(resolve => setTimeout(resolve, 800))
-    setStatus('success')
-    setEmail('')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setEmail('')
+      } else {
+        setStatus('idle')
+      }
+    } catch {
+      setStatus('idle')
+    }
   }
 
   if (status === 'success') {
