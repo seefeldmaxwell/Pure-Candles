@@ -182,7 +182,7 @@ export function OccasionPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center">
+      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center -mt-16 md:-mt-20">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${data.heroImage}')` }}

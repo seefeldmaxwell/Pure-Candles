@@ -42,7 +42,7 @@ export function About() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center">
+      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center -mt-16 md:-mt-20">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{

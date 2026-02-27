@@ -1,96 +1,31 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Search, Eye, ShoppingBag, ChevronDown } from 'lucide-react'
-
-// Product data
-const products = [
-  {
-    id: 'midnight-jasmine',
-    name: 'Midnight Jasmine',
-    price: 34.00,
-    image: 'https://images.unsplash.com/photo-1602607434678-d3aa07ec4c9d?w=400&q=80',
-    scent: ['floral', 'woody'],
-    mood: ['tranquility', 'romance'],
-    isNew: true,
-  },
-  {
-    id: 'cedar-driftwood',
-    name: 'Cedar Driftwood',
-    price: 32.00,
-    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80',
-    scent: ['woody', 'fresh'],
-    mood: ['grounding', 'focus'],
-    isNew: false,
-  },
-  {
-    id: 'citrus-ember',
-    name: 'Citrus Ember',
-    price: 34.00,
-    image: 'https://images.unsplash.com/photo-1608181831688-ba5b3c8cf80c?w=400&q=80',
-    scent: ['citrus', 'spicy'],
-    mood: ['energy', 'focus'],
-    isNew: false,
-  },
-  {
-    id: 'lavender-dream',
-    name: 'Lavender Dream',
-    price: 28.00,
-    image: 'https://images.unsplash.com/photo-1599751449128-eb7249c3d6b1?w=400&q=80',
-    scent: ['floral', 'fresh'],
-    mood: ['tranquility', 'grounding'],
-    isNew: false,
-  },
-  {
-    id: 'vanilla-sandalwood',
-    name: 'Vanilla Sandalwood',
-    price: 36.00,
-    image: 'https://images.unsplash.com/photo-1600056077673-5e8a58c4c6e9?w=400&q=80',
-    scent: ['woody', 'spicy'],
-    mood: ['romance', 'grounding'],
-    isNew: true,
-  },
-  {
-    id: 'ocean-mist',
-    name: 'Ocean Mist',
-    price: 30.00,
-    image: 'https://images.unsplash.com/photo-1572726729207-a78d6feb18d7?w=400&q=80',
-    scent: ['fresh', 'ozone'],
-    mood: ['tranquility', 'focus'],
-    isNew: false,
-  },
-  {
-    id: 'rose-garden',
-    name: 'Rose Garden',
-    price: 38.00,
-    image: 'https://images.unsplash.com/photo-1543333995-a78aea2eee50?w=400&q=80',
-    scent: ['floral'],
-    mood: ['romance', 'tranquility'],
-    isNew: false,
-  },
-  {
-    id: 'autumn-spice',
-    name: 'Autumn Spice',
-    price: 32.00,
-    image: 'https://images.unsplash.com/photo-1605651202774-7d573fd3f12d?w=400&q=80',
-    scent: ['spicy', 'woody'],
-    mood: ['grounding', 'energy'],
-    isNew: true,
-  },
-]
+import { products } from '../data/products'
+import { useCartStore } from '../stores/cartStore'
 
 const moodFilters = ['Tranquility', 'Focus', 'Romance', 'Energy', 'Grounding']
 const scentFilters = ['Woody', 'Floral', 'Citrus', 'Spicy', 'Fresh', 'Ozone']
 const sortOptions = ['Newest First', 'Price: Low to High', 'Price: High to Low', 'Name A-Z']
 
 export function Catalog() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchParams] = useSearchParams()
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
   const [selectedMoods, setSelectedMoods] = useState<string[]>(
     searchParams.get('mood') ? [searchParams.get('mood')!] : []
   )
-  const [selectedScents, setSelectedScents] = useState<string[]>([])
+  const [selectedScents, setSelectedScents] = useState<string[]>(
+    searchParams.get('scent') ? [searchParams.get('scent')!] : []
+  )
   const [sortBy, setSortBy] = useState('Newest First')
   const [showSortDropdown, setShowSortDropdown] = useState(false)
+  const addItem = useCartStore((s) => s.addItem)
+
+  // Sync search query from URL params
+  useEffect(() => {
+    const search = searchParams.get('search')
+    if (search) setSearchQuery(search)
+  }, [searchParams])
 
   const toggleFilter = (filter: string, type: 'mood' | 'scent') => {
     if (type === 'mood') {
@@ -287,6 +222,7 @@ export function Catalog() {
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
                       <div className="flex gap-2">
                         <button
+                          onClick={(e) => { e.preventDefault(); addItem(product) }}
                           className="p-3 bg-white hover:bg-gray-100 transition-colors"
                           aria-label={`Add ${product.name} to cart`}
                         >

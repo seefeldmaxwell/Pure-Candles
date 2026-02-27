@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Calendar } from 'lucide-react'
+import { NewsletterForm } from '../components/NewsletterForm'
 
 const articles = [
   {
@@ -61,6 +63,15 @@ const articles = [
 const categories = ['All', 'Tips & Tricks', 'Behind the Scenes', 'Occasions', 'Sustainability']
 
 export function Journal() {
+  const [activeCategory, setActiveCategory] = useState('All')
+
+  const filteredArticles = activeCategory === 'All'
+    ? articles
+    : articles.filter(a => a.category === activeCategory)
+
+  const featured = filteredArticles[0]
+  const rest = filteredArticles.slice(1)
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -80,8 +91,9 @@ export function Journal() {
             {categories.map((category) => (
               <button
                 key={category}
+                onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 text-sm transition-colors ${
-                  category === 'All'
+                  category === activeCategory
                     ? 'text-[#c9956c] border-b-2 border-[#c9956c]'
                     : 'text-gray-500 hover:text-gray-900'
                 }`}
@@ -94,78 +106,84 @@ export function Journal() {
       </section>
 
       {/* Featured Article */}
-      <section className="py-16 md:py-24">
-        <div className="container-narrow">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-[4/3] overflow-hidden">
-              <img
-                src={articles[0].image}
-                alt={articles[0].title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <span className="text-xs tracking-[0.15em] uppercase text-[#c9956c] mb-4 block">
-                Featured
-              </span>
-              <h2 className="text-3xl md:text-4xl mb-4">{articles[0].title}</h2>
-              <p className="text-gray-600 mb-6">{articles[0].excerpt}</p>
-              <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {new Date(articles[0].date).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </span>
-                <span>{articles[0].readTime}</span>
+      {featured && (
+        <section className="py-16 md:py-24">
+          <div className="container-narrow">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <button className="inline-flex items-center text-[#c9956c] font-medium hover:underline">
-                Read Article <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              <div>
+                <span className="text-xs tracking-[0.15em] uppercase text-[#c9956c] mb-4 block">
+                  Featured
+                </span>
+                <h2 className="text-3xl md:text-4xl mb-4">{featured.title}</h2>
+                <p className="text-gray-600 mb-6">{featured.excerpt}</p>
+                <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    {new Date(featured.date).toLocaleDateString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </span>
+                  <span>{featured.readTime}</span>
+                </div>
+                <button className="inline-flex items-center text-[#c9956c] font-medium hover:underline">
+                  Read Article <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Article Grid */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container-narrow">
           <h2 className="section-title text-center mb-12">Latest Articles</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.slice(1).map((article) => (
-              <article key={article.id} className="group bg-white">
-                <div className="aspect-[3/2] overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6">
-                  <span className="text-xs tracking-[0.1em] uppercase text-[#c9956c] mb-2 block">
-                    {article.category}
-                  </span>
-                  <h3 className="text-xl mb-3 group-hover:text-[#c9956c] transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>{new Date(article.date).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric'
-                    })}</span>
-                    <span>{article.readTime}</span>
+          {rest.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {rest.map((article) => (
+                <article key={article.id} className="group bg-white">
+                  <div className="aspect-[3/2] overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <div className="p-6">
+                    <span className="text-xs tracking-[0.1em] uppercase text-[#c9956c] mb-2 block">
+                      {article.category}
+                    </span>
+                    <h3 className="text-xl mb-3 group-hover:text-[#c9956c] transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <span>{new Date(article.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric'
+                      })}</span>
+                      <span>{article.readTime}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500 py-8">No articles in this category yet.</p>
+          )}
         </div>
       </section>
 
@@ -176,17 +194,7 @@ export function Journal() {
           <p className="section-subtitle mb-8">
             Subscribe to receive our latest articles and exclusive content.
           </p>
-          <form className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 border border-gray-300 focus:border-[#c9956c] focus:ring-1 focus:ring-[#c9956c] outline-none transition"
-              aria-label="Email address"
-            />
-            <button type="submit" className="btn-primary whitespace-nowrap">
-              Subscribe
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </section>
     </div>

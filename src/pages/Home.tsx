@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Droplets, Wind, Flame } from 'lucide-react'
+import { ArrowRight, Droplets, Wind, Flame, ShoppingBag } from 'lucide-react'
+import { products } from '../data/products'
+import { useCartStore } from '../stores/cartStore'
+import { NewsletterForm } from '../components/NewsletterForm'
 
 const categories = [
   {
@@ -37,6 +40,70 @@ const occasions = [
   { name: 'Custom Orders', slug: 'custom', description: 'Personalized candles for any occasion' },
 ]
 
+const featuredProducts = products.filter(p => p.isNew).slice(0, 4)
+
+function FeaturedProducts() {
+  const addItem = useCartStore((s) => s.addItem)
+
+  return (
+    <section className="py-20 md:py-28 bg-white">
+      <div className="container-narrow">
+        <div className="text-center mb-16">
+          <p className="text-[#c9956c] text-xs tracking-[0.2em] uppercase mb-4">New Arrivals</p>
+          <h2 className="section-title mb-4">Fresh from the Studio</h2>
+          <p className="section-subtitle">
+            Our latest hand-poured creations, crafted with seasonal inspiration.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredProducts.map((product) => (
+            <article key={product.id} className="product-card group">
+              <div className="product-card-image">
+                <span className="badge-new flex items-center gap-1">
+                  <span>✦</span> NEW
+                </span>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  width={400}
+                  height={400}
+                  className="transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                  <button
+                    onClick={() => addItem(product)}
+                    className="p-3 bg-white hover:bg-gray-100 transition-colors"
+                    aria-label={`Add ${product.name} to cart`}
+                  >
+                    <ShoppingBag className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between">
+                  <Link to={`/product/${product.id}`} className="hover:text-[#c9956c] transition-colors">
+                    <h3 className="text-lg">{product.name}</h3>
+                  </Link>
+                  <span className="price-tag">${product.price.toFixed(2)}</span>
+                </div>
+                <p className="product-meta mt-1">{product.scent.join(' · ').toUpperCase()}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link to="/catalog" className="btn-outline-dark inline-flex items-center">
+            View All Candles <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function Home() {
   useEffect(() => {
     // Load Elfsight platform script
@@ -52,7 +119,7 @@ export function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center">
+      <section className="relative min-h-screen flex items-center justify-center -mt-16 md:-mt-20">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -196,6 +263,9 @@ export function Home() {
         </div>
       </section>
 
+      {/* Featured Products */}
+      <FeaturedProducts />
+
       {/* Social Feed Section - Elfsight Widget */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container-narrow">
@@ -221,17 +291,7 @@ export function Home() {
           <p className="section-subtitle mb-8">
             Subscribe to receive exclusive offers, early access to new collections, and candle care tips.
           </p>
-          <form className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 border border-gray-300 focus:border-[#c9956c] focus:ring-1 focus:ring-[#c9956c] outline-none transition"
-              aria-label="Email address"
-            />
-            <button type="submit" className="btn-primary whitespace-nowrap">
-              Subscribe
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </section>
     </div>
